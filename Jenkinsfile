@@ -15,10 +15,7 @@ Pipeline Stages:
 */
 
 pipeline {
-  agent any
-  tools {
-    git 'Default'
-  }
+  agent { label 'windows' }
   options { timestamps() }
   parameters {
     choice(
