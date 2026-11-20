@@ -39,30 +39,31 @@ pipeline {
     CI = '1'
   }
   stages {
-    stage('🔄 Checkout') {
+    stage('Checkout') {
       steps {
         checkout scm
       }
     }
-    stage('📦 Install Dependencies') {
+    stage('Install Dependencies') {
       steps {
          powershell 'npm ci'
       }
     }
-    stage('🤖 Install Playwright Browsers & Dependencies') {
+    stage('Install Playwright Browsers & Dependencies') {
       steps {
         powershell 'npx playwright install --with-deps'
         powershell 'Copy-Item .env.example .env -ErrorAction SilentlyContinue'
       }
     }
     
-    stage('▶️ Run Playwright Tests') {
+    stage('Run Playwright Tests') {
       steps {
         script {
           def suite = params.TEST_SUITE
           def browserFlag = "--project=${params.BROWSER}"
           def modeFlag = params.MODE == 'headed' ? '--headed' : ''
-          powershell "npm run ${suite} -- ${browserFlag} ${modeFlag} --grep-invert '@db'"
+          powershell 'Remove-Item -Recurse -Force reports, test-results, allure-results -ErrorAction SilentlyContinue'
+          powershell(script: "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; npm run ${suite} -- ${browserFlag} ${modeFlag} --grep-invert '@db'", encoding: 'UTF-8')
         }
       }
     }
