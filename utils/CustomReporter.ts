@@ -1056,7 +1056,7 @@ class CustomReporter implements Reporter {
     </div>
 
     <footer class="report-footer">
-        <p>Designed by <a href="https://pavanonlinetrainings.com" target="_blank"> Pavan</a> @ <a href="https://youtube.com/@sdetpavan/" target="_blank">SDET-QA</a></p>
+        <p>Designed by <a href="https://github.com/sagar-bankar" target="_blank"> Sagar Bankar</a> @ <a href="https://github.com/sagar-bankar" target="_blank">Software Engineer</a></p>
     </footer>
 
     <script>
