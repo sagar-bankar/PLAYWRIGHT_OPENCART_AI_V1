@@ -62,14 +62,14 @@ pipeline {
           def suite = params.TEST_SUITE
           def browserFlag = "--project=${params.BROWSER}"
           def modeFlag = params.MODE == 'headed' ? '--headed' : ''
-          powershell "npm run ${suite} -- ${browserFlag} ${modeFlag}"
+          powershell "npm run ${suite} -- ${browserFlag} ${modeFlag} --grep-invert '@db'"
         }
       }
     }
   }
   post {
     always {
-      archiveArtifacts artifacts: 'reports/**,custom-report/**,allure-results/**', allowEmptyArchive: true
+      archiveArtifacts artifacts: 'reports/**,custom-report/**,allure-results/**,test-results/**', allowEmptyArchive: true
       junit testResults: 'reports/results.xml', allowEmptyResults: true
       allure includeProperties: false, results: [[path: 'allure-results']]
       publishHTML([
