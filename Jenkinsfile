@@ -15,7 +15,7 @@ Pipeline Stages:
 */
 
 pipeline {
-  agent { label 'windows' }
+  agent any
   options { timestamps() }
   parameters {
     choice(
